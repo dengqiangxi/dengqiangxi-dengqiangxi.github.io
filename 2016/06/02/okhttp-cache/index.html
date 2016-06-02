@@ -21,9 +21,9 @@ OkHttp的性能我自不必说，关于使用方式">
 
 OkHttp使用的几种方式
 OkHttp的性能我自不必说，关于使用方式">
-<meta property="og:image" content="http://dengqiangxi.github.io/image/okhttp1.png">
-<meta property="og:image" content="http://dengqiangxi.github.io/image/okhttp2.png">
-<meta property="og:updated_time" content="2016-06-02T14:32:23.000Z">
+<meta property="og:image" content="http://dengqiangxi.github.io/image/okhttp/okhttp1.png">
+<meta property="og:image" content="http://dengqiangxi.github.io/image/okhttp/okhttp2.png">
+<meta property="og:updated_time" content="2016-06-02T14:34:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OkHttp缓存配置">
 <meta name="twitter:description" content="前言废话不多说，先奉上 OkHttp GitHub
@@ -32,7 +32,7 @@ OkHttp的性能我自不必说，关于使用方式">
 
 OkHttp使用的几种方式
 OkHttp的性能我自不必说，关于使用方式">
-<meta name="twitter:image" content="http://dengqiangxi.github.io/image/okhttp1.png">
+<meta name="twitter:image" content="http://dengqiangxi.github.io/image/okhttp/okhttp1.png">
   
     <link rel="alternative" href="/atom.xml" title="TrancyDeng&#39;s blog" type="application/atom+xml">
   
@@ -308,7 +308,7 @@ OkHttp的性能我自不必说，关于使用方式">
 <p>首先创建文件缓存目录，这里有两个参数</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">new</span> <span class="selector-tag">OkHttpClient</span><span class="selector-class">.Builder</span>()</span><br><span class="line">                <span class="selector-class">.connectTimeout</span>(10, <span class="selector-tag">TimeUnit</span><span class="selector-class">.SECONDS</span>)</span><br><span class="line">                <span class="selector-class">.cache</span>(<span class="selector-tag">new</span> <span class="selector-tag">Cache</span>(<span class="selector-tag">httpCacheDirectory</span>, 1024 * 1024 * 10))<span class="selector-class">.build</span>();</span><br></pre></td></tr></table></figure>
 <p>通过OKHTTP的构建者模式把文件目录传入进去。运行之后，从外置存储中你会发现缓存目录已经创建完成。而且内容也已经缓存进去了。  </p>
-<p><img src="/image/okhttp1.png" alt="图片1"><br><img src="/image/okhttp2.png" alt="图片1">  </p>
+<p><img src="/image/okhttp/okhttp1.png" alt="图片1"><br><img src="/image/okhttp/okhttp2.png" alt="图片1">  </p>
 <p><em>断网，再次打开软件，发现并<strong>不能</strong>把缓存读取出来。</em><br>这是为什么呢？</p>
 <blockquote>
 <p>这是OKHTTP的缓存策略导致的。用户可以设置cache-control来控制缓存的时效。有关cache-control的介绍请戳<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=zh-cn" target="_blank" rel="external">这里</a>,不能翻墙的戳<a href="http://baike.baidu.com/item/Cache-control" target="_blank" rel="external">这里</a></p>
@@ -327,7 +327,7 @@ OkHttp的性能我自不必说，关于使用方式">
         <p><span>本文标题:</span><a href="/2016/06/02/okhttp-cache/">OkHttp缓存配置</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 邓强锡 的个人博客">邓强锡</a></p>
         <p><span>发布时间:</span>2016年06月02日 - 21时48分</p>
-        <p><span>最后更新:</span>2016年06月02日 - 22时32分</p>
+        <p><span>最后更新:</span>2016年06月02日 - 22时34分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/06/02/okhttp-cache/" title="OkHttp缓存配置">http://dengqiangxi.github.io/2016/06/02/okhttp-cache/</a>
             <span class="copy-path" data-clipboard-text="原文: http://dengqiangxi.github.io/2016/06/02/okhttp-cache/　　作者: 邓强锡" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

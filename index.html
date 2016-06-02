@@ -283,7 +283,7 @@
 <p>首先创建文件缓存目录，这里有两个参数</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">new</span> <span class="selector-tag">OkHttpClient</span><span class="selector-class">.Builder</span>()</span><br><span class="line">                <span class="selector-class">.connectTimeout</span>(10, <span class="selector-tag">TimeUnit</span><span class="selector-class">.SECONDS</span>)</span><br><span class="line">                <span class="selector-class">.cache</span>(<span class="selector-tag">new</span> <span class="selector-tag">Cache</span>(<span class="selector-tag">httpCacheDirectory</span>, 1024 * 1024 * 10))<span class="selector-class">.build</span>();</span><br></pre></td></tr></table></figure>
 <p>通过OKHTTP的构建者模式把文件目录传入进去。运行之后，从外置存储中你会发现缓存目录已经创建完成。而且内容也已经缓存进去了。  </p>
-<p><img src="/image/okhttp1.png" alt="图片1"><br><img src="/image/okhttp2.png" alt="图片1">  </p>
+<p><img src="/image/okhttp/okhttp1.png" alt="图片1"><br><img src="/image/okhttp/okhttp2.png" alt="图片1">  </p>
 <p><em>断网，再次打开软件，发现并<strong>不能</strong>把缓存读取出来。</em><br>这是为什么呢？</p>
 <blockquote>
 <p>这是OKHTTP的缓存策略导致的。用户可以设置cache-control来控制缓存的时效。有关cache-control的介绍请戳<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=zh-cn" target="_blank" rel="external">这里</a>,不能翻墙的戳<a href="http://baike.baidu.com/item/Cache-control" target="_blank" rel="external">这里</a></p>
