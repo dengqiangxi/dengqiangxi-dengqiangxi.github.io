@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Rxjava入门Retrofit配置缓存策略 | TrancyDeng&#39;s blog</title>
+  <title>Rxjava入门 一 | TrancyDeng&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言 先看维基百科的解释
 
@@ -11,7 +11,7 @@
 
 现在函数式编程越来越流行，这种编程方式强调程序执行的结果而">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Rxjava入门Retrofit配置缓存策略">
+<meta property="og:title" content="Rxjava入门 一">
 <meta property="og:url" content="http://yoursite.com/2016/06/01/第一篇文章/index.html">
 <meta property="og:site_name" content="TrancyDeng's blog">
 <meta property="og:description" content="前言 先看维基百科的解释
@@ -22,9 +22,9 @@
 <meta property="og:image" content="http://yoursite.com/image/rxjava/helloworld.png">
 <meta property="og:image" content="http://yoursite.com/image/rxjava/rx_list.png">
 <meta property="og:image" content="http://yoursite.com/image/rxjava/rx/rx_list2.png">
-<meta property="og:updated_time" content="2016-06-02T12:52:35.000Z">
+<meta property="og:updated_time" content="2016-06-02T13:03:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Rxjava入门Retrofit配置缓存策略">
+<meta name="twitter:title" content="Rxjava入门 一">
 <meta name="twitter:description" content="前言 先看维基百科的解释
 
 函数式编程（英语：functional programming）或称函数程序设计，又称泛函编程，是一种编程范型，它将电脑运算视为数学上的函数计算，并且避免使用程序状态以及易变对象。函数编程语言最重要的基础是λ演算（lambda calculus）。而且λ演算的函数可以接受函数当作输入（引数）和输出（传出值）。
@@ -253,7 +253,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Rxjava入门Retrofit配置缓存策略
+      Rxjava入门 一
     </h1>
   
 
@@ -282,18 +282,21 @@
 不过东西好是好，对于新手来说入门有些困难。Rxjava入门还是有些时间成本的。Android要实现函数式编程需要引入两个库文件,方式如下：
 </code></pre><p><a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="external">RxJava</a><br><a href="https://github.com/ReactiveX/RxAndroid" target="_blank" rel="external">RxAndroid</a></p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">compile</span> <span class="string">'io.reactivex:rxjava:x.y.z'</span></span><br><span class="line"><span class="keyword">compile</span> <span class="string">'io.reactivex:rxandroid:1.2.0'</span></span><br></pre></td></tr></table></figure>
-<pre><code>说了半天，到底什么是rxjava呢，初学者肯定一头雾水。简单来说，ReactiveX就是”观察者模式+迭代器模式+函数式编程”，它扩展了观察者模式，通过使用可观察的对象序列流来表述一系列事件，订阅者进行占点观察并对序列流做出反应（或持久化或输出显示等等）；借鉴迭代器模式，对多个对象序列进行迭代输出，订阅者可以依次处理不同的对象序列；使用函数式编程思想(functional programming)，极大简化问题解决的步骤。  
-
-RxJava最核心的两个东西就是Observables(被观察者，也就是事件源)和Subscribers(观察者)，由Observables发出一系列的事件，Subscribers进行订阅接收并进行处理，看起来就好像是设计模式中的观察者模式，但是跟观察者模式不同的地方就在于，如果没有观察者(即Subscribers)，Observables是不会发出任何事件的。
-通俗来讲，Observables就是个事件发射器，将事件发射到Subscribers上进行处理。如果事件不唯一，就会对事件进行轮询处理，如果在此过程中出现异常就直接抛出，事件中断。
-</code></pre><p><strong>说了这么久，对于新手来说依旧没什么印象，反而觉得复杂难懂。下面我们来结合例子说明</strong></p>
-<p>###编写helloworld</p>
-<figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Observable</span>&lt;String&gt; observable = <span class="keyword">Observable</span>.just(<span class="string">"helloworld"</span>);</span><br></pre></td></tr></table></figure>
-<pre><code>首先我们创建了一个Observable对象，然后将“helloworld”数据传递给他。不过现在observable不会有任何动作，我们刚才说过，没有subscriber对象，Observables是不会发出事件的。
-</code></pre><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Subscriber&lt;String&gt; subscriber = <span class="keyword">new</span> Subscriber&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说了半天，到底什么是rxjava呢，初学者肯定一头雾水。简单来说，ReactiveX就是”观察者模式+迭代器模式+函数式编程”，它扩展了观察者模式，通过使用可观察的对象序列流来表述一系列事件，订阅者进行占点观察并对序列流做出反应（或持久化或输出显示等等）；借鉴迭代器模式，对多个对象序列进行迭代输出，订阅者可以依次处理不同的对象序列；使用函数式编程思想(functional programming)，极大简化问题解决的步骤。  </p>
+<p>RxJava最核心的两个东西就是Observables(被观察者，也就是事件源)和Subscribers(观察者)，由Observables发出一系列的事件，Subscribers进行订阅接收并进行处理，看起来就好像是设计模式中的观察者模式，但是跟观察者模式不同的地方就在于，如果没有观察者(即Subscribers)，Observables是不会发出任何事件的。<br>        通俗来讲，Observables就是个事件发射器，将事件发射到Subscribers上进行处理。如果事件不唯一，就会对事件进行轮询处理，如果在此过程中出现异常就直接抛出，事件中断。</p>
+</blockquote>
+<p><strong>说了这么久，对于新手来说依旧没什么印象，反而觉得复杂难懂。下面我们来结合例子说明</strong></p>
+<h3 id="编写helloworld"><a href="#编写helloworld" class="headerlink" title="编写helloworld"></a>编写helloworld</h3><figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Observable</span>&lt;String&gt; observable = <span class="keyword">Observable</span>.just(<span class="string">"helloworld"</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>首先我们创建了一个Observable对象，然后将“helloworld”数据传递给他。不过现在observable不会有任何动作，我们刚才说过，没有subscriber对象，Observables是不会发出事件的。</p>
+</blockquote>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Subscriber&lt;String&gt; subscriber = <span class="keyword">new</span> Subscriber&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <pre><code>现在我们创建了subscriber对象，它是用来处理事件的。subscriber中有三个方法分别是onNext、onError、onCompleted，从这个方法中可以看出，onNext可以多次执行，但在这里我们一个一个数据源，所以只会执行一次，onError在有错误的时候执行，onCompleted在没有任何事件需要处理之后执行。
 </code></pre><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">observable<span class="selector-class">.subscribe</span>(subscriber);</span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>当subscriber订阅observable之后，事件开始发送。在这个过程中我们不关心内部是怎样发送数据的，如果没有异常发出，onNext应该会被调用。<br>我们运行一下程序<br><img src="/image/rxjava/helloworld.png" alt="图片"></p>
+</blockquote>
 <pre><code>可以看到helloworld输出出来了。一次事件完成。
 </code></pre><h3 id="打印数组"><a href="#打印数组" class="headerlink" title="打印数组"></a>打印数组</h3><p>刚才我们输出了helloworld。有人问，如果是数组呢，或者是List()。Rxjava已经为我们考虑到了。Observable给我们提供了多种初始化方式，最常见的除了just()方式外还有from()<br><img src="/image/rxjava/rx_list.png" alt="构造"><br>我们从图片中可以看到，构造方法里是各种泛型，我们可以传入类似于数组的参数，比如List Map Array及其子类。<br><img src="/image/rxjava/rx/rx_list2.png" alt="初始化"><br>我们再次创建了observable对象，剩下的步骤读者应该知道了吧，这里我直接给出代码</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> Observable&lt;String&gt; observable = Observable</span><br><span class="line">                .from(<span class="keyword">new</span> String[]&#123;<span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>, <span class="string">"four"</span>&#125;);</span><br><span class="line"></span><br><span class="line">        observable.subscribe(<span class="keyword">new</span> Subscriber&lt;String&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> onCompleted() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> onError(Throwable e) &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> onNext(String s) &#123;</span><br><span class="line">                System.out.println(s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line"><span class="number">06</span><span class="number">-02</span> <span class="number">20</span>:<span class="number">51</span>:<span class="number">34.486</span> <span class="number">28207</span><span class="number">-28207</span><span class="regexp">/? I/</span>System.<span class="string">out:</span> one</span><br><span class="line"><span class="number">06</span><span class="number">-02</span> <span class="number">20</span>:<span class="number">51</span>:<span class="number">34.486</span> <span class="number">28207</span><span class="number">-28207</span><span class="regexp">/? I/</span>System.<span class="string">out:</span> two</span><br><span class="line"><span class="number">06</span><span class="number">-02</span> <span class="number">20</span>:<span class="number">51</span>:<span class="number">34.486</span> <span class="number">28207</span><span class="number">-28207</span><span class="regexp">/? I/</span>System.<span class="string">out:</span> three</span><br><span class="line"><span class="number">06</span><span class="number">-02</span> <span class="number">20</span>:<span class="number">51</span>:<span class="number">34.486</span> <span class="number">28207</span><span class="number">-28207</span><span class="regexp">/? I/</span>System.<span class="string">out:</span> four</span><br></pre></td></tr></table></figure>
@@ -305,12 +308,12 @@ RxJava最核心的两个东西就是Observables(被观察者，也就是事件�
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/06/01/第一篇文章/">Rxjava入门Retrofit配置缓存策略</a></p>
+        <p><span>本文标题:</span><a href="/2016/06/01/第一篇文章/">Rxjava入门 一</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 邓强锡 的个人博客">邓强锡</a></p>
         <p><span>发布时间:</span>2016年06月01日 - 23时02分</p>
-        <p><span>最后更新:</span>2016年06月02日 - 20时52分</p>
+        <p><span>最后更新:</span>2016年06月02日 - 21时03分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/06/01/第一篇文章/" title="Rxjava入门Retrofit配置缓存策略">http://yoursite.com/2016/06/01/第一篇文章/</a>
+            <span>原始链接:</span><a class="post-url" href="/2016/06/01/第一篇文章/" title="Rxjava入门 一">http://yoursite.com/2016/06/01/第一篇文章/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/06/01/第一篇文章/　　作者: 邓强锡" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
@@ -337,7 +340,7 @@ RxJava最核心的两个东西就是Observables(被观察者，也就是事件�
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#打印数组"><span class="toc-number">1.1.</span> <span class="toc-text">打印数组</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编写helloworld"><span class="toc-number">1.1.</span> <span class="toc-text">编写helloworld</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打印数组"><span class="toc-number">1.2.</span> <span class="toc-text">打印数组</span></a></li></ol></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -385,7 +388,7 @@ RxJava最核心的两个东西就是Observables(被观察者，也就是事件�
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/06/01/第一篇文章/" data-title="Rxjava入门Retrofit配置缓存策略" data-url="http://yoursite.com/2016/06/01/第一篇文章/"></div>
+    <div class="ds-thread" data-thread-key="2016/06/01/第一篇文章/" data-title="Rxjava入门 一" data-url="http://yoursite.com/2016/06/01/第一篇文章/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -417,7 +420,7 @@ RxJava最核心的两个东西就是Observables(被观察者，也就是事件�
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/01/第一篇文章/">Rxjava入门Retrofit配置缓存策略</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/01/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/01/第一篇文章/">Rxjava入门 一</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/01/hello-world/">Hello World</a></li></ul>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
