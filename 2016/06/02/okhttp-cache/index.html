@@ -3,17 +3,36 @@
 <head>
   <meta charset="utf-8">
   
-  <title>TrancyDeng&#39;s blog</title>
+  <title>OkHttp缓存配置 | TrancyDeng&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Android JavaScript">
-<meta property="og:type" content="website">
-<meta property="og:title" content="TrancyDeng's blog">
-<meta property="og:url" content="http://dengqiangxi.github.io/index.html">
+  <meta name="description" content="前言废话不多说，先奉上 OkHttp GitHub
+
+说到OKHTTP，我想你肯定不会陌生,Android中无数大大小小的项目在用这个开源库,甚至包括Google开发的一些项目也在用。Android API23 抛弃了httpclient之后，我想肯定会有很多人在为寻找下一个好用的网络库而犯愁。看到这里，我认为你走对了。  
+
+OkHttp使用的几种方式
+OkHttp的性能我自不必说，关于使用方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OkHttp缓存配置">
+<meta property="og:url" content="http://dengqiangxi.github.io/2016/06/02/okhttp-cache/index.html">
 <meta property="og:site_name" content="TrancyDeng's blog">
-<meta property="og:description" content="Android JavaScript">
+<meta property="og:description" content="前言废话不多说，先奉上 OkHttp GitHub
+
+说到OKHTTP，我想你肯定不会陌生,Android中无数大大小小的项目在用这个开源库,甚至包括Google开发的一些项目也在用。Android API23 抛弃了httpclient之后，我想肯定会有很多人在为寻找下一个好用的网络库而犯愁。看到这里，我认为你走对了。  
+
+OkHttp使用的几种方式
+OkHttp的性能我自不必说，关于使用方式">
+<meta property="og:image" content="http://dengqiangxi.github.io/image/okhttp1.png">
+<meta property="og:image" content="http://dengqiangxi.github.io/image/okhttp2.png">
+<meta property="og:updated_time" content="2016-06-02T14:32:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TrancyDeng's blog">
-<meta name="twitter:description" content="Android JavaScript">
+<meta name="twitter:title" content="OkHttp缓存配置">
+<meta name="twitter:description" content="前言废话不多说，先奉上 OkHttp GitHub
+
+说到OKHTTP，我想你肯定不会陌生,Android中无数大大小小的项目在用这个开源库,甚至包括Google开发的一些项目也在用。Android API23 抛弃了httpclient之后，我想肯定会有很多人在为寻找下一个好用的网络库而犯愁。看到这里，我认为你走对了。  
+
+OkHttp使用的几种方式
+OkHttp的性能我自不必说，关于使用方式">
+<meta name="twitter:image" content="http://dengqiangxi.github.io/image/okhttp1.png">
   
     <link rel="alternative" href="/atom.xml" title="TrancyDeng&#39;s blog" type="application/atom+xml">
   
@@ -27,9 +46,6 @@
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
-    
-    
-  
   
       <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   
@@ -40,8 +56,8 @@
       var yiliaConfig = {
           fancybox: true,
           animate: true,
-          isHome: true,
-          isPost: false,
+          isHome: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -222,9 +238,7 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-okhttp-cache" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-okhttp-cache" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/06/02/okhttp-cache/" class="article-date">
@@ -240,12 +254,23 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/02/okhttp-cache/">OkHttp缓存配置</a>
+    <h1 class="article-title" itemprop="name">
+      OkHttp缓存配置
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OkHttp/">OkHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缓存/">缓存</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -295,178 +320,147 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OkHttp/">OkHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缓存/">缓存</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/06/02/okhttp-cache/">OkHttp缓存配置</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 邓强锡 的个人博客">邓强锡</a></p>
+        <p><span>发布时间:</span>2016年06月02日 - 21时48分</p>
+        <p><span>最后更新:</span>2016年06月02日 - 22时32分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/06/02/okhttp-cache/" title="OkHttp缓存配置">http://dengqiangxi.github.io/2016/06/02/okhttp-cache/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://dengqiangxi.github.io/2016/06/02/okhttp-cache/　　作者: 邓强锡" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2016/06/01/rxjava1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Rxjava入门 一</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OkHttp使用的几种方式"><span class="toc-number">1.1.</span> <span class="toc-text">OkHttp使用的几种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#同步get"><span class="toc-number">1.1.1.</span> <span class="toc-text">同步get</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#异步get"><span class="toc-number">1.1.2.</span> <span class="toc-text">异步get</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Post方式提交String"><span class="toc-number">1.1.3.</span> <span class="toc-text">Post方式提交String</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Post方式提交文件"><span class="toc-number">1.1.4.</span> <span class="toc-text">Post方式提交文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Post方式提交表单"><span class="toc-number">1.1.5.</span> <span class="toc-text">Post方式提交表单</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存策略"><span class="toc-number">1.2.</span> <span class="toc-text">缓存策略</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
 
 
 
 
 
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
 
 
-  
-    <article id="post-rxjava1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/01/rxjava1/" class="article-date">
-      <time datetime="2016-06-01T15:02:10.000Z" itemprop="datePublished">2016-06-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
+
     
-      <input type="hidden" class="isFancy" />
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/06/02/okhttp-cache/" data-title="OkHttp缓存配置" data-url="http://dengqiangxi.github.io/2016/06/02/okhttp-cache/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"killbug"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
     
-    
-      <header class="article-header">
+
+
+
+    <div class="scroll" id="post-nav-button">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/01/rxjava1/">Rxjava入门 一</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong> 先看维基百科的解释</strong></p>
-<blockquote>
-<p><a href="https://zh.wikipedia.org/zh-cn/函數程式語言" target="_blank" rel="external">函数式编程</a>（英语：functional programming）或称函数程序设计，又称泛函编程，是一种编程范型，它将电脑运算视为数学上的函数计算，并且避免使用程序状态以及易变对象。函数编程语言最重要的基础是λ演算（lambda calculus）。而且λ演算的函数可以接受函数当作输入（引数）和输出（传出值）。</p>
-<p>现在函数式编程越来越流行，这种编程方式强调程序执行的结果而非执行的过程。结合MVP设计模式让我们开发变得越来越便捷。<br>不过东西好是好，对于新手来说入门有些困难。Rxjava入门还是有些时间成本的。Android要实现函数式编程需要引入两个库文件,方式如下：<br><a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="external">RxJava</a><br><a href="https://github.com/ReactiveX/RxAndroid" target="_blank" rel="external">RxAndroid</a></p>
-</blockquote>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">compile</span> <span class="string">'io.reactivex:rxjava:x.y.z'</span></span><br><span class="line"><span class="keyword">compile</span> <span class="string">'io.reactivex:rxandroid:1.2.0'</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>说了半天，到底什么是rxjava呢，初学者肯定一头雾水。简单来说，ReactiveX就是”观察者模式+迭代器模式+函数式编程”，它扩展了观察者模式，通过使用可观察的对象序列流来表述一系列事件，订阅者进行占点观察并对序列流做出反应（或持久化或输出显示等等）；借鉴迭代器模式，对多个对象序列进行迭代输出，订阅者可以依次处理不同的对象序列；使用函数式编程思想(functional programming)，极大简化问题解决的步骤。  </p>
-<p>RxJava最核心的两个东西就是Observables(被观察者，也就是事件源)和Subscribers(观察者)，由Observables发出一系列的事件，Subscribers进行订阅接收并进行处理，看起来就好像是设计模式中的观察者模式，但是跟观察者模式不同的地方就在于，如果没有观察者(即Subscribers)，Observables是不会发出任何事件的。<br>        通俗来讲，Observables就是个事件发射器，将事件发射到Subscribers上进行处理。如果事件不唯一，就会对事件进行轮询处理，如果在此过程中出现异常就直接抛出，事件中断。</p>
-</blockquote>
-<p><strong>说了这么久，对于新手来说依旧没什么印象，反而觉得复杂难懂。下面我们来结合例子说明</strong></p>
-<h3 id="编写helloworld"><a href="#编写helloworld" class="headerlink" title="编写helloworld"></a>编写helloworld</h3><figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Observable</span>&lt;String&gt; observable = <span class="keyword">Observable</span>.just(<span class="string">"helloworld"</span>);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>首先我们创建了一个Observable对象，然后将“helloworld”数据传递给他。不过现在observable不会有任何动作，我们刚才说过，没有subscriber对象，Observables是不会发出事件的。</p>
-</blockquote>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Subscriber&lt;String&gt; subscriber = <span class="keyword">new</span> Subscriber&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>现在我们创建了subscriber对象，它是用来处理事件的。subscriber中有三个方法分别是onNext、onError、onCompleted，从这个方法中可以看出，onNext可以多次执行，但在这里我们一个一个数据源，所以只会执行一次，onError在有错误的时候执行，onCompleted在没有任何事件需要处理之后执行。</p>
-</blockquote>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">observable<span class="selector-class">.subscribe</span>(subscriber);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>当subscriber订阅observable之后，事件开始发送。在这个过程中我们不关心内部是怎样发送数据的，如果没有异常发出，onNext应该会被调用。<br>我们运行一下程序<br><img src="/image/rxjava/helloworld.png" alt="图片"></p>
-<p>可以看到helloworld输出出来了。一次事件完成。</p>
-</blockquote>
-<h3 id="打印数组"><a href="#打印数组" class="headerlink" title="打印数组"></a>打印数组</h3><p>刚才我们输出了helloworld。有人问，如果是数组呢，或者是List()。Rxjava已经为我们考虑到了。Observable给我们提供了多种初始化方式，最常见的除了just()方式外还有from()<br><img src="/image/rxjava/rx_list.png" alt="构造"><br>我们从图片中可以看到，构造方法里是各种泛型，我们可以传入类似于数组的参数，比如List Map Array及其子类。<br><img src="/image/rxjava/rx_list2.png" alt="初始化"><br>我们再次创建了observable对象，剩下的步骤读者应该知道了吧，这里我直接给出代码</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> Observable&lt;String&gt; observable = Observable</span><br><span class="line">                .from(<span class="keyword">new</span> String[]&#123;<span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>, <span class="string">"four"</span>&#125;);</span><br><span class="line"></span><br><span class="line">        observable.subscribe(<span class="keyword">new</span> Subscriber&lt;String&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> onCompleted() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> onError(Throwable e) &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> onNext(String s) &#123;</span><br><span class="line">                System.out.println(s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line"><span class="number">06</span><span class="number">-02</span> <span class="number">20</span>:<span class="number">51</span>:<span class="number">34.486</span> <span class="number">28207</span><span class="number">-28207</span><span class="regexp">/? I/</span>System.<span class="string">out:</span> one</span><br><span class="line"><span class="number">06</span><span class="number">-02</span> <span class="number">20</span>:<span class="number">51</span>:<span class="number">34.486</span> <span class="number">28207</span><span class="number">-28207</span><span class="regexp">/? I/</span>System.<span class="string">out:</span> two</span><br><span class="line"><span class="number">06</span><span class="number">-02</span> <span class="number">20</span>:<span class="number">51</span>:<span class="number">34.486</span> <span class="number">28207</span><span class="number">-28207</span><span class="regexp">/? I/</span>System.<span class="string">out:</span> three</span><br><span class="line"><span class="number">06</span><span class="number">-02</span> <span class="number">20</span>:<span class="number">51</span>:<span class="number">34.486</span> <span class="number">28207</span><span class="number">-28207</span><span class="regexp">/? I/</span>System.<span class="string">out:</span> four</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/okhttp/">okhttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/retrofit/">retrofit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjava/">rxjava</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/01/hello-world/" class="article-date">
-      <time datetime="2016-06-01T14:40:01.000Z" itemprop="datePublished">2016-06-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/01/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/06/01/rxjava1/" title="下一篇: Rxjava入门 一">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
     </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/02/okhttp-cache/">OkHttp缓存配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/01/rxjava1/">Rxjava入门 一</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/01/hello-world/">Hello World</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
 
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
 
 
-
-
-
-
-
-
-
-  
-  
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
