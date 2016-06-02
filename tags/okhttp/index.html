@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: OkHttp | TrancyDeng&#39;s blog</title>
+  <title>Tag: okhttp | TrancyDeng&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Android JavaScript">
 <meta property="og:type" content="website">
 <meta property="og:title" content="TrancyDeng's blog">
-<meta property="og:url" content="http://dengqiangxi.github.io/tags/OkHttp/index.html">
+<meta property="og:url" content="http://dengqiangxi.github.io/tags/okhttp/index.html">
 <meta property="og:site_name" content="TrancyDeng's blog">
 <meta property="og:description" content="Android JavaScript">
 <meta name="twitter:card" content="summary">
@@ -20,8 +20,6 @@
   
     <link rel="icon" href="/img/favicon.png">
   
-  
-  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
   
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
@@ -36,7 +34,7 @@
   <script>
       var yiliaConfig = {
           fancybox: true,
-          animate: true,
+          animate: false,
           isHome: false,
           isPost: false,
           isArchive: false,
@@ -54,7 +52,7 @@
     <header id="header" class="inner">
         <a href="/" class="profilepic">
             
-            <img lazy-src="/img/head.jpg" class="js-avatar">
+            <img src="/img/head.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
             
         </a>
 
@@ -66,6 +64,10 @@
         <p class="header-subtitle">一个资源共享平台</p>
         
         
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
         
             <div id="switch-btn" class="switch-btn">
                 <div class="icon">
@@ -76,6 +78,11 @@
                         </div>
                         <div class="icon-wrap icon-ribbon hide" data-idx="1">
                             <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
                         </div>
                         
                         
@@ -92,6 +99,8 @@
                     <ul class="tips-inner">
                         <li>菜单</li>
                         <li>标签</li>
+                        
+                        <li>友情链接</li>
                         
                         
                         <li>关于我</li>
@@ -149,10 +158,16 @@
                 
                 
                 
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                    </div>
+                </section>
+                
 
                 
                 
-                <section class="switch-part switch-part3">
+                <section class="switch-part switch-part4">
                 
                     <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
                 </section>
@@ -172,7 +187,7 @@
         <header id="header" class="inner">
             <a href="/" class="profilepic">
                 
-                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                    <img src="/img/head.jpg" class="js-avatar" style="width: 100%; height: 100%; opacity: 1;">
                 
             </a>
             <hgroup>
@@ -236,14 +251,14 @@
   <div class="archive-article-inner">
     <header class="archive-article-header">
           <div class="article-meta">
-              <a href="/2016/06/02/okhttp-cache/" class="archive-article-date">
-      <time datetime="2016-06-02T13:48:03.000Z" itemprop="datePublished">06-02</time>
+              <a href="/2016/06/01/rxjava1/" class="archive-article-date">
+      <time datetime="2016-06-01T15:02:10.000Z" itemprop="datePublished">06-01</time>
 </a>
         </div>
          
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/06/02/okhttp-cache/">OkHttp缓存配置</a>
+      <a class="archive-article-title" href="/2016/06/01/rxjava1/">Rxjava入门 一</a>
     </h1>
   
 
@@ -252,7 +267,7 @@
 
           
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OkHttp/">OkHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缓存/">缓存</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/okhttp/">okhttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/retrofit/">retrofit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjava/">rxjava</a></li></ul>
     </div>
 
         </div>
@@ -373,6 +388,24 @@
 </script>
 
 
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
   </div>
 </body>
+</html>
 </html>
