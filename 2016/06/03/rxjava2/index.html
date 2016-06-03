@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="邓强锡" />
+
+
+
+<meta name="description" content="通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里Rxjava入门 一)，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。
+
+但是我们知道我们平时所接触的事件流程远远没有这么简单。有时候我们需要把数据经过复杂的变换然后才能为我们所用。同样，rxjava的开发人员也已经为我们想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rxjava入门二">
+<meta property="og:url" content="http://dengqiangxi.github.io/2016/06/03/rxjava2/index.html">
+<meta property="og:site_name" content="TrancyDeng's blog">
+<meta property="og:description" content="通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里Rxjava入门 一)，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。
+
+但是我们知道我们平时所接触的事件流程远远没有这么简单。有时候我们需要把数据经过复杂的变换然后才能为我们所用。同样，rxjava的开发人员也已经为我们想">
+<meta property="og:image" content="http://dengqiangxi.github.io/rxjava/rxjava_repeat.png">
+<meta property="og:image" content="http://dengqiangxi.github.io/rxjava/rxjava_map.png">
+<meta property="og:image" content="http://dengqiangxi.github.io/rxjava/rxjava_flatmap.png">
+<meta property="og:updated_time" content="2016-06-03T08:38:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rxjava入门二">
+<meta name="twitter:description" content="通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里Rxjava入门 一)，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。
+
+但是我们知道我们平时所接触的事件流程远远没有这么简单。有时候我们需要把数据经过复杂的变换然后才能为我们所用。同样，rxjava的开发人员也已经为我们想">
+<meta name="twitter:image" content="http://dengqiangxi.github.io/rxjava/rxjava_repeat.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternative" href="/atom.xml" title="TrancyDeng&#39;s blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Rxjava入门二 | TrancyDeng&#39;s blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        open_in_new: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/head2.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">邓强锡</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">一个资源共享平台</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/Home">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:dengqx@outlook.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2209312015" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/dengqiangxi" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/chi-chu-63" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/OkHttp/">OkHttp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/okhttp/">okhttp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/retrofit/">retrofit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.wercoder.com">码农笔记</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">邓强锡</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/head2.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">邓强锡</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">一个资源共享平台</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/Home">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:dengqx@outlook.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2209312015" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/dengqiangxi" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/chi-chu-63" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-rxjava2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/03/rxjava2/" class="article-date">
+      <time datetime="2016-06-03T06:16:49.000Z" itemprop="datePublished">2016-06-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Rxjava入门二
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjava/">rxjava</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里<a href="http://dengqiangxi.github.io/2016/06/01/rxjava1/">Rxjava入门 一</a>)，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。</p>
+<hr>
+<p>但是我们知道我们平时所接触的事件流程远远没有这么简单。有时候我们需要把数据经过复杂的变换然后才能为我们所用。同样，rxjava的开发人员也已经为我们想到了这些。并且创造了一系列操作符为我们所用。</p>
+</blockquote>
+<h2 id="创建操作"><a href="#创建操作" class="headerlink" title="创建操作"></a>创建操作</h2><p>上一节我们已经接触了from和just两个创建方式，其实也是两个操作符。<br>除此之外还有Create、Range、Repeat、Start、Timer等方式</p>
+<h3 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h3><blockquote>
+<p>官方解释：使用一个函数从头开始创建一个Observable<br>你可以使用 Create 操作符从头开始创建一个Observable,给这个操作符传递一个接受观察者 作为参数的函数,编写这个函数让它的行为表现为一个Observable–恰当的调用观察者的 onNext,onError和onCompleted方法。<br>一个形式正确的有限Observable必须尝试调用观察者的onCompleted正好一次或者它的 onError正好一次,而且此后不能再调用观察者的任何其它方法。<br>RxJava将这个操作符实现为 create 方法。<br>建议你在传递给 create 方法的函数中检查观察者的 isUnsubscribed 状态,以便在没有观察者的时候,让你的Observable停止发射数据或者做昂贵的运算。</p>
+</blockquote>
+<p> 示例代码:</p>
+ <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Observable</span><span class="selector-class">.create</span>(new Observable.OnSubscribe&lt;Integer&gt;() &#123;    <span class="variable">@Override</span>    public void call(Subscriber&lt;? super Integer&gt; observer) &#123;        <span class="selector-tag">try</span> &#123;            <span class="selector-tag">if</span> (!observer.isUnsubscribed()) &#123;                for (int i = 1; i &lt; 5; <span class="selector-tag">i</span>++) &#123;                    observer<span class="selector-class">.onNext</span>(i);                &#125;                observer.onCompleted();            &#125;        &#125; catch (Exception e) &#123;            observer<span class="selector-class">.onError</span>(e);&#125; &#125; &#125; )<span class="selector-class">.subscribe</span>(new Subscriber&lt;Integer&gt;() &#123;        <span class="variable">@Override</span>        public void onNext(Integer item) &#123;            System<span class="selector-class">.out</span><span class="selector-class">.println</span>(<span class="string">"Next: "</span> + item);&#125;        <span class="variable">@Override</span>        public void onError(Throwable error) &#123;            System<span class="selector-class">.err</span><span class="selector-class">.println</span>(<span class="string">"Error: "</span> + error.getMessage());        &#125;        <span class="variable">@Override</span>        public void onCompleted() &#123;            System<span class="selector-class">.out</span><span class="selector-class">.println</span>(<span class="string">"Sequence complete."</span>);        &#125;&#125;);</span><br></pre></td></tr></table></figure>
+<p> 从例子我们可以看到。重新创建一个observable我们可以掌控订阅者对事件的执行方式。</p>
+<h3 id="Repeat"><a href="#Repeat" class="headerlink" title="Repeat"></a>Repeat</h3><blockquote>
+<p>创建一个发射特定数据重复多次的Observable<br>Repeat重复地发射数据。某些实现允许你重复的发射某个数据序列,还有一些允许你限制重 复的次数。<br>RxJava将这个操作符实现为 repeat 方法。它不是创建一个Observable,而是重复发射原始 Observable的数据序列,这个序列或者是无限的,或者通过 repeat(n) 指定重复次数。<br>repeat 操作符默认在 trampoline 调度器上执行。有一个变体可以通过可选参数指定 Scheduler。</p>
+</blockquote>
+<p><img src="/rxjava/rxjava_repeat.png" alt="repeat"></p>
+<p>关于创建的操作符就讲到这里，相关的其它方式可以在<a href="http://reactivex.io/documentation/operators.html#creating" target="_blank" rel="external">这里查看</a>  </p>
+<h2 id="变换操作符"><a href="#变换操作符" class="headerlink" title="变换操作符"></a>变换操作符</h2><p>变换操作符的目的是讲数据变为我们需要的类型，常见的变换操作符有 Buffer、FlatMap、GroupBy、Map、Scan。</p>
+<h3 id="Map操作符"><a href="#Map操作符" class="headerlink" title="Map操作符"></a>Map操作符</h3><blockquote>
+<p>官方解释：Map 操作符对原始Observable发射的每一项数据应用一个你选择的函数,然后返回一个发射 这些结果的Observable。</p>
+</blockquote>
+<p>使用map操作符，我们可以将数据转换后再进行发射  </p>
+<p><img src="rxjava/rxjava_map.png" alt="map"><br>如图所示，我们将每个数据*10然后输出数据会依次按照原始顺序*10然后输出.  </p>
+<p>下面我们举个例子  </p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> <span class="selector-tag">Observable</span><span class="selector-class">.just</span>(<span class="string">"1010101010"</span>)<span class="selector-class">.map</span>(new Func1&lt;String, Integer&gt;() &#123;</span><br><span class="line">            <span class="variable">@Override</span></span><br><span class="line">            public Integer call(String s) &#123;</span><br><span class="line">                return Integer<span class="selector-class">.parseInt</span>(s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)<span class="selector-class">.subscribe</span>(new Subscriber&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="variable">@Override</span></span><br><span class="line">            public void onCompleted() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="variable">@Override</span></span><br><span class="line">            public void onError(Throwable e) &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="variable">@Override</span></span><br><span class="line">            public void onNext(Integer integer) &#123;</span><br><span class="line">                System<span class="selector-class">.out</span><span class="selector-class">.println</span>(integer);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">06-03</span> <span class="selector-tag">14</span><span class="selector-pseudo">:55</span><span class="selector-pseudo">:13.927</span> <span class="selector-tag">358-358</span>/? <span class="selector-tag">I</span>/<span class="selector-tag">System</span><span class="selector-class">.out</span>: <span class="selector-tag">1010101010</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到，我们通过map操作符将String类型转换为int类型然后打印输出。map泛型第一个参数是原始数据类型，第二个是你需要的类型。在此不再过多赘述。</p>
+<h3 id="FlatMap操作符"><a href="#FlatMap操作符" class="headerlink" title="FlatMap操作符"></a>FlatMap操作符</h3><blockquote>
+<p>官方解释：FlatMap 将一个发射数据的Observable变换为多个Observables,然后将它们发射的数据合并 后放进一个单独的Observable<br>FlatMap 操作符使用一个指定的函数对原始Observable发射的每一项数据执行变换操作,这 个函数返回一个本身也发射数据的Observable,然后 FlatMap 合并这些Observables发射的数 据,最后将合并后的结果当做它自己的数据序列发射。<br>这个方法是很有用的,例如,当你有一个这样的Observable:它发射一个数据序列,这些数 据本身包含Observable成员或者可以变换为Observable,因此你可以创建一个新的 Observable发射这些次级Observable发射的数据的完整集合。  </p>
+</blockquote>
+<p><img src="/rxjava/rxjava_flatmap.png" alt="flatmap">  </p>
+<p>官网文档意思是，利用flatmap可以将一个Observable发射的数据转换成多个Observable发射，然后将其发射的数据整合到一起，组成所需要的发射序列</p>
+<p>我们来举个例子</p>
+<pre><code>Observable.just(&quot;a.b.c.d.e.f.g&quot;).flatMap(new Func1&lt;String, Observable&lt;String&gt;&gt;() {
+            @Override
+            public Observable&lt;String&gt; call(String s) {
+                return Observable.from(s.split(&quot;\\.&quot;));
+            }
+        }).subscribe(new Subscriber&lt;String&gt;() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(String s) {
+                System.out.println(s);
+            }
+        });
+
+
+06-03 15:09:29.456 13428-13428/? I/System.out: a
+06-03 15:09:29.456 13428-13428/? I/System.out: b
+06-03 15:09:29.456 13428-13428/? I/System.out: c
+06-03 15:09:29.456 13428-13428/? I/System.out: d
+06-03 15:09:29.456 13428-13428/? I/System.out: e
+06-03 15:09:29.456 13428-13428/? I/System.out: f
+06-03 15:09:29.456 13428-13428/? I/System.out: g
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">从代码中我们可以看到，我将字符串“a.b.c.d.e.f.g”用.符号分割开成长度为7的字符数组，然后利用Observable.from方式重新创建了数量为7的发射序列，然后依次进行发射。然后在依次subscribe中执行。</span><br><span class="line">变换操作符就先讲到这里，剩下的可在[<span class="string">这里</span>](<span class="link">https://github.com/ReactiveX/RxJava/wiki/Transforming-Observables</span>)学习.</span><br><span class="line"></span><br><span class="line"><span class="section">## 过滤操作符</span></span><br><span class="line">&gt;过滤操作符可以用于过滤和选择Observable发射的数据序列。常见的过滤操作符有 filter、takeLast、skip、skipLast、take、first、takeFirst、timeout等。过滤操作符看字面意思我想你已经知道差不多了。在这里我们不做重点解释。先举几个例子。</span><br><span class="line"><span class="section">### Filter</span></span><br><span class="line">&gt;官方解释：只发射通过了谓词测试的数据项。  </span><br><span class="line">Filter 操作符使用你指定的一个谓词函数测试数据项,只有通过测试的数据才会被发射。  </span><br><span class="line"></span><br><span class="line">示例代码：</span><br></pre></td></tr></table></figure>
+
+Observable.just(1, 2, 3, 4, 5)
+          .filter(new Func1&lt;Integer, Boolean&gt;() {
+              @Override
+              public Boolean call(Integer item) {
+                return( item &lt; 4 );
+              }
+          }).subscribe(new Subscriber&lt;Integer&gt;() {
+        @Override
+        public void onNext(Integer item) {
+            System.out.println(&quot;Next: &quot; + item);
+        }
+        @Override
+        public void onError(Throwable error) {
+            System.err.println(&quot;Error: &quot; + error.getMessage());
+        }
+        @Override
+        public void onCompleted() {
+            System.out.println(&quot;Sequence complete.&quot;);
+        }
+});
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输出</span><br></pre></td></tr></table></figure>
+
+Next: 1
+Next: 2
+Next: 3
+Sequence complete.
+</code></pre><p>剩余的操作符可以在<a href="https://github.com/ReactiveX/RxJava/wiki/Filtering-Observables" target="_blank" rel="external">这里</a>这里继续学习。</p>
+<p>rxjava操作符类型还有很多，这里就不再列举了，有需要的可以看官方文档。这里还有一本中文版文档。需要的请<a href="http://pan.baidu.com/s/1i50KDwD" target="_blank" rel="external">点击</a>阅读或下载。</p>
+<h2 id="Rxjava结合RxAndroid使用"><a href="#Rxjava结合RxAndroid使用" class="headerlink" title="Rxjava结合RxAndroid使用"></a>Rxjava结合RxAndroid使用</h2><h2 id="调度器（Scheduler）"><a href="#调度器（Scheduler）" class="headerlink" title="调度器（Scheduler）"></a>调度器（Scheduler）</h2><p>说到这里我们先提一下调度器的概念。</p>
+<blockquote>
+<p>如果你想给Observable操作符链添加多线程功能,你可以指定操作符(或者特定的 Observable)在特定的调度器(Scheduler)上执行。<br>某些ReactiveX的Observable操作符有一些变体,它们可以接受一个Scheduler参数。这个参 数指定操作符将它们的部分或全部任务放在一个特定的调度器上执行。<br>使用ObserveOn和SubscribeOn操作符,你可以让Observable在一个特定的调度器上执行, ObserveOn指示一个Observable在一个特定的调度器上调用观察者的onNext, onError和 onCompleted方法,SubscribeOn更进一步,它指示Observable将全部的处理过程(包括发射 数据和通知)放在特定的调度器上执行。</p>
+</blockquote>
+<p>Android是UI单线程的，所以在进行大量数据处理或者请求网络的时候我们经常要用到开启子线程异步处理数据。这时候我们就需要用到调度器了.<br>Rxjava使用调度器为我们提供了多种开启异步的方式。<br>如图：<br><a href="/rxjava/rxjava_schedule.png">rxjava_schedule.png</a>  </p>
+<p>看图得知，Schedulers.io( )操作符处理异步数据时是最适合我们使用的。  </p>
+<blockquote>
+<p>指定一个观察者在哪个调度器上观察这个Observable，我们可以使用ObserveOn操作符<br>指定Observable自身在哪个调度器上执行我们可以使用SubscribeOn操作符</p>
+</blockquote>
+<h3 id="RxAndroid"><a href="#RxAndroid" class="headerlink" title="RxAndroid"></a>RxAndroid</h3><p>RxAndroid是Rxjava的扩展，是由<a href="https://github.com/ReactiveX/RxAndroid" target="_blank" rel="external">JakeWharton</a>编写，目的是使Android可以优雅地处理异步请求并且完美融合Rxjava使用。RxAndroid为我们提供了一个AndroidSchedulers.mainThread()调度器，我们可以在observer中自由切换线程。</p>
+<p>我们先写个例子：|</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/06/03/rxjava2/">Rxjava入门二</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">邓强锡</a></p>
+        <p><span>发布时间:</span>2016-06-03, 14:16:49</p>
+        <p><span>最后更新:</span>2016-06-03, 16:38:00</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/06/03/rxjava2/" title="Rxjava入门二">http://dengqiangxi.github.io/2016/06/03/rxjava2/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://dengqiangxi.github.io/2016/06/03/rxjava2/　　作者: 邓强锡" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/06/02/okhttp-cache/">
+                    OkHttp缓存配置
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建操作"><span class="toc-number">1.</span> <span class="toc-text">创建操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create"><span class="toc-number">1.1.</span> <span class="toc-text">Create</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Repeat"><span class="toc-number">1.2.</span> <span class="toc-text">Repeat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变换操作符"><span class="toc-number">2.</span> <span class="toc-text">变换操作符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Map操作符"><span class="toc-number">2.1.</span> <span class="toc-text">Map操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FlatMap操作符"><span class="toc-number">2.2.</span> <span class="toc-text">FlatMap操作符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rxjava结合RxAndroid使用"><span class="toc-number">3.</span> <span class="toc-text">Rxjava结合RxAndroid使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调度器（Scheduler）"><span class="toc-number">4.</span> <span class="toc-text">调度器（Scheduler）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RxAndroid"><span class="toc-number">4.1.</span> <span class="toc-text">RxAndroid</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Rxjava入门二　| TrancyDeng's blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/06/03/rxjava2/" data-title="Rxjava入门二" data-url="http://dengqiangxi.github.io/2016/06/03/rxjava2/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"killbug"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/06/02/okhttp-cache/" title="下一篇: OkHttp缓存配置">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/03/rxjava2/">Rxjava入门二</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/02/okhttp-cache/">OkHttp缓存配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/01/rxjava1/">Rxjava入门 一</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 邓强锡
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.0">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 6;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
