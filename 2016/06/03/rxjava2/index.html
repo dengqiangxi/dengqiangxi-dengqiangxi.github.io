@@ -15,25 +15,25 @@
 
 
 
-<meta name="description" content="通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里Rxjava入门 一)，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。
+<meta name="description" content="通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里[Rxjava入门 一](http://dengqiangxi.github.io/2016/06/01/rxjava1/))，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。
 
-但是我们知道我们平时所接触的事件流程远远没有这么简单。有时候我们需要把数据经过复杂的变换然后才能为我们所用。同样，rxjava的开发人员也已经为我们想">
+但是我们知道我们平时所接触的事件流程远远没有这么">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rxjava入门二">
 <meta property="og:url" content="http://dengqiangxi.github.io/2016/06/03/rxjava2/index.html">
 <meta property="og:site_name" content="TrancyDeng's blog">
-<meta property="og:description" content="通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里Rxjava入门 一)，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。
+<meta property="og:description" content="通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里[Rxjava入门 一](http://dengqiangxi.github.io/2016/06/01/rxjava1/))，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。
 
-但是我们知道我们平时所接触的事件流程远远没有这么简单。有时候我们需要把数据经过复杂的变换然后才能为我们所用。同样，rxjava的开发人员也已经为我们想">
+但是我们知道我们平时所接触的事件流程远远没有这么">
 <meta property="og:image" content="http://dengqiangxi.github.io/image/rxjava/rxjava_repeat.png">
 <meta property="og:image" content="http://dengqiangxi.github.io/image/rxjava/rxjava_map.png">
 <meta property="og:image" content="http://dengqiangxi.github.io/image/rxjava/rxjava_flatmap.png">
-<meta property="og:updated_time" content="2016-06-03T08:51:29.000Z">
+<meta property="og:updated_time" content="2016-06-03T08:53:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rxjava入门二">
-<meta name="twitter:description" content="通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里Rxjava入门 一)，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。
+<meta name="twitter:description" content="通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里[Rxjava入门 一](http://dengqiangxi.github.io/2016/06/01/rxjava1/))，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。
 
-但是我们知道我们平时所接触的事件流程远远没有这么简单。有时候我们需要把数据经过复杂的变换然后才能为我们所用。同样，rxjava的开发人员也已经为我们想">
+但是我们知道我们平时所接触的事件流程远远没有这么">
 <meta name="twitter:image" content="http://dengqiangxi.github.io/image/rxjava/rxjava_repeat.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -309,11 +309,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <blockquote>
-<p>通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里<a href="http://dengqiangxi.github.io/2016/06/01/rxjava1/">Rxjava入门 一</a>)，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。</p>
-<hr>
+        <pre><code>通过上一节的学习我们知道了怎么样rxjava是什么(需要看一的朋友点这里[Rxjava入门 一](http://dengqiangxi.github.io/2016/06/01/rxjava1/))，以及怎样利用rxjava打印输出字符串和数组。总结起来就是：Observable发射事件，subscribe订阅observable事件并迭代执行。
+</code></pre><hr>
 <p>但是我们知道我们平时所接触的事件流程远远没有这么简单。有时候我们需要把数据经过复杂的变换然后才能为我们所用。同样，rxjava的开发人员也已经为我们想到了这些。并且创造了一系列操作符为我们所用。</p>
-</blockquote>
 <h2 id="创建操作"><a href="#创建操作" class="headerlink" title="创建操作"></a>创建操作</h2><p>上一节我们已经接触了from和just两个创建方式，其实也是两个操作符。<br>除此之外还有Create、Range、Repeat、Start、Timer等方式</p>
 <h3 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h3><blockquote>
 <p>官方解释：使用一个函数从头开始创建一个Observable<br>你可以使用 Create 操作符从头开始创建一个Observable,给这个操作符传递一个接受观察者 作为参数的函数,编写这个函数让它的行为表现为一个Observable–恰当的调用观察者的 onNext,onError和onCompleted方法。<br>一个形式正确的有限Observable必须尝试调用观察者的onCompleted正好一次或者它的 onError正好一次,而且此后不能再调用观察者的任何其它方法。<br>RxJava将这个操作符实现为 create 方法。<br>建议你在传递给 create 方法的函数中检查观察者的 isUnsubscribed 状态,以便在没有观察者的时候,让你的Observable停止发射数据或者做昂贵的运算。</p>
@@ -392,7 +390,7 @@
         <p><span>本文标题:</span><a href="/2016/06/03/rxjava2/">Rxjava入门二</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">邓强锡</a></p>
         <p><span>发布时间:</span>2016-06-03, 14:16:49</p>
-        <p><span>最后更新:</span>2016-06-03, 16:51:29</p>
+        <p><span>最后更新:</span>2016-06-03, 16:53:08</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/06/03/rxjava2/" title="Rxjava入门二">http://dengqiangxi.github.io/2016/06/03/rxjava2/</a>
             <span class="copy-path" data-clipboard-text="原文: http://dengqiangxi.github.io/2016/06/03/rxjava2/　　作者: 邓强锡" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
