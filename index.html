@@ -350,62 +350,50 @@
             }
         });
 
-<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">输出：       </span><br><span class="line">        </span><br><span class="line">```          </span><br><span class="line"><span class="number">06-03 15:09</span>:<span class="number">29</span>.<span class="number">456 13428</span>-<span class="number">13428</span>/? I/System.out: a</span><br><span class="line"><span class="number">06-03 15:09</span>:<span class="number">29</span>.<span class="number">456 13428</span>-<span class="number">13428</span>/? I/System.out: b</span><br><span class="line"><span class="number">06-03 15:09</span>:<span class="number">29</span>.<span class="number">456 13428</span>-<span class="number">13428</span>/? I/System.out: c</span><br><span class="line"><span class="number">06-03 15:09</span>:<span class="number">29</span>.<span class="number">456 13428</span>-<span class="number">13428</span>/? I/System.out: d</span><br><span class="line"><span class="number">06-03 15:09</span>:<span class="number">29</span>.<span class="number">456 13428</span>-<span class="number">13428</span>/? I/System.out: e</span><br><span class="line"><span class="number">06-03 15:09</span>:<span class="number">29</span>.<span class="number">456 13428</span>-<span class="number">13428</span>/? I/System.out: f</span><br><span class="line"><span class="number">06-03 15:09</span>:<span class="number">29</span>.<span class="number">456 13428</span>-<span class="number">13428</span>/? I/System.out: g</span><br></pre></td></tr></table></figure>
+06-03 15:09:29.456 13428-13428/? I/System.out: a
+06-03 15:09:29.456 13428-13428/? I/System.out: b
+06-03 15:09:29.456 13428-13428/? I/System.out: c
+06-03 15:09:29.456 13428-13428/? I/System.out: d
+06-03 15:09:29.456 13428-13428/? I/System.out: e
+06-03 15:09:29.456 13428-13428/? I/System.out: f
+06-03 15:09:29.456 13428-13428/? I/System.out: g
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt;&amp;emsp;&amp;emsp;从代码中我们可以看到，我将字符串“a.b.c.d.e.f.g”用.符号分割开成长度为7的字符数组，然后利用Observable.from方式重新创建了数量为7的发射序列，然后依次进行发射。然后在依次subscribe中执行。</span><br><span class="line">&amp;emsp;&amp;emsp;变换操作符就先讲到这里，剩下的可在[<span class="string">这里</span>](<span class="link">https://github.com/ReactiveX/RxJava/wiki/Transforming-Observables</span>)学习.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section">## 过滤操作符</span></span><br><span class="line">&gt;&amp;emsp;&amp;emsp;过滤操作符可以用于过滤和选择Observable发射的数据序列。常见的过滤操作符有 filter、takeLast、skip、skipLast、take、first、takeFirst、timeout等。过滤操作符看字面意思我想你已经知道差不多了。在这里我们不做重点解释。先举几个例子。</span><br><span class="line"><span class="section">### Filter</span></span><br><span class="line">&gt;&amp;emsp;&amp;emsp;官方解释：只发射通过了谓词测试的数据项。  </span><br><span class="line">Filter 操作符使用你指定的一个谓词函数测试数据项,只有通过测试的数据才会被发射。  </span><br><span class="line"></span><br><span class="line">示例代码：</span><br></pre></td></tr></table></figure>
 
+Observable.just(1, 2, 3, 4, 5)
+          .filter(new Func1&lt;Integer, Boolean&gt;() {
+              @Override
+              public Boolean call(Integer item) {
+                return( item &lt; 4 );
+              }
+          }).subscribe(new Subscriber&lt;Integer&gt;() {
+        @Override
+        public void onNext(Integer item) {
+            System.out.println(&quot;Next: &quot; + item);
+        }
+        @Override
+        public void onError(Throwable error) {
+            System.err.println(&quot;Error: &quot; + error.getMessage());
+        }
+        @Override
+        public void onCompleted() {
+            System.out.println(&quot;Sequence complete.&quot;);
+        }
+});
 
-&gt;&amp;emsp;&amp;emsp;从代码中我们可以看到，我将字符串“a.b.c.d.e.f.g”用.符号分割开成长度为7的字符数组，然后利用Observable.from方式重新创建了数量为7的发射序列，然后依次进行发射。然后在依次subscribe中执行。
-&amp;emsp;&amp;emsp;变换操作符就先讲到这里，剩下的可在[这里](https://github.com/ReactiveX/RxJava/wiki/Transforming-Observables)学习.
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt;输出</span><br></pre></td></tr></table></figure>
 
+Next: 1
+Next: 2
+Next: 3
+Sequence complete.
 
-## 过滤操作符
-&gt;&amp;emsp;&amp;emsp;过滤操作符可以用于过滤和选择Observable发射的数据序列。常见的过滤操作符有 filter、takeLast、skip、skipLast、take、first、takeFirst、timeout等。过滤操作符看字面意思我想你已经知道差不多了。在这里我们不做重点解释。先举几个例子。
-### Filter
-&gt;&amp;emsp;&amp;emsp;官方解释：只发射通过了谓词测试的数据项。  
-Filter 操作符使用你指定的一个谓词函数测试数据项,只有通过测试的数据才会被发射。  
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&amp;emsp;&amp;emsp;剩余的操作符可以在[<span class="string">这里</span>](<span class="link">https://github.com/ReactiveX/RxJava/wiki/Filtering-Observables</span>)这里继续学习。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&amp;emsp;&amp;emsp;rxjava操作符类型还有很多，这里就不再列举了，有需要的可以看官方文档。这里还有一本中文版文档。需要的请[<span class="string">点击</span>](<span class="link">http://pan.baidu.com/s/1i50KDwD</span>)阅读或下载。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section">## Rxjava结合RxAndroid使用</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 调度器（Scheduler）</span></span><br><span class="line">说到这里我们先提一下调度器的概念。</span><br><span class="line">&gt;&amp;emsp;&amp;emsp;如果你想给Observable操作符链添加多线程功能,你可以指定操作符(或者特定的 Observable)在特定的调度器(Scheduler)上执行。  &amp;emsp;&amp;emsp;某些ReactiveX的Observable操作符有一些变体,它们可以接受一个Scheduler参数。这个参 数指定操作符将它们的部分或全部任务放在一个特定的调度器上执行。  &amp;emsp;&amp;emsp;使用ObserveOn和SubscribeOn操作符,你可以让Observable在一个特定的调度器上执行, ObserveOn指示一个Observable在一个特定的调度器上调用观察者的onNext, onError和 onCompleted方法,SubscribeOn更进一步,它指示Observable将全部的处理过程(包括发射 数据和通知)放在特定的调度器上执行。  </span><br><span class="line"></span><br><span class="line">&amp;emsp;&amp;emsp;Android是UI单线程的，所以在进行大量数据处理或者请求网络的时候我们经常要用到开启子线程异步处理数据。这时候我们就需要用到调度器了.  </span><br><span class="line">Rxjava使用调度器为我们提供了多种开启异步的方式。  </span><br><span class="line">如图：  </span><br><span class="line">[<span class="string">rxjava_schedule.png</span>](<span class="link">/rxjava/rxjava_schedule.png</span>)  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&amp;emsp;&amp;emsp;看图得知，Schedulers.io( )操作符处理异步数据时是最适合我们使用的。  </span><br><span class="line"></span><br><span class="line">&gt;&amp;emsp;&amp;emsp;指定一个观察者在哪个调度器上观察这个Observable，我们可以使用ObserveOn操作符  &gt;&amp;emsp;&amp;emsp;指定Observable自身在哪个调度器上执行我们可以使用SubscribeOn操作符</span><br><span class="line"></span><br><span class="line"><span class="section">### RxAndroid</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&amp;emsp;&amp;emsp;RxAndroid是Rxjava的扩展，是由[<span class="string">JakeWharton</span>](<span class="link">https://github.com/ReactiveX/RxAndroid</span>)编写，目的是使Android可以优雅地处理异步请求并且完美融合Rxjava使用。RxAndroid为我们提供了一个AndroidSchedulers.mainThread()调度器，我们可以在observer中自由切换线程。</span><br><span class="line"></span><br><span class="line">我们先写个例子：</span><br></pre></td></tr></table></figure>
 
-示例代码：
-
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-tag">Observable</span><span class="selector-class">.just</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)          <span class="selector-class">.filter</span>(new Func1&lt;Integer, Boolean&gt;() &#123;              <span class="variable">@Override</span>              public Boolean call(Integer item) &#123;                return( item &lt; 4 );              &#125;          &#125;)<span class="selector-class">.subscribe</span>(new Subscriber&lt;Integer&gt;() &#123;        <span class="variable">@Override</span>        public void onNext(Integer item) &#123;            System<span class="selector-class">.out</span><span class="selector-class">.println</span>(<span class="string">"Next: "</span> + item);        &#125;        <span class="variable">@Override</span>        public void onError(Throwable error) &#123;            System<span class="selector-class">.err</span><span class="selector-class">.println</span>(<span class="string">"Error: "</span> + error.getMessage());        &#125;        <span class="variable">@Override</span>        public void onCompleted() &#123;            System<span class="selector-class">.out</span><span class="selector-class">.println</span>(<span class="string">"Sequence complete."</span>);        &#125;&#125;);</span><br></pre></td></tr></table></figure>
-
-&gt;输出
-
-<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Next</span>: <span class="number">1</span><span class="keyword">Next</span>: <span class="number">2</span><span class="keyword">Next</span>: <span class="number">3</span><span class="keyword">Sequence</span> complete.</span><br></pre></td></tr></table></figure>
-
-&amp;emsp;&amp;emsp;剩余的操作符可以在[这里](https://github.com/ReactiveX/RxJava/wiki/Filtering-Observables)这里继续学习。
-
-
-&amp;emsp;&amp;emsp;rxjava操作符类型还有很多，这里就不再列举了，有需要的可以看官方文档。这里还有一本中文版文档。需要的请[点击](http://pan.baidu.com/s/1i50KDwD)阅读或下载。
-
-
-## Rxjava结合RxAndroid使用
-
-### 调度器（Scheduler）
-说到这里我们先提一下调度器的概念。
-&gt;&amp;emsp;&amp;emsp;如果你想给Observable操作符链添加多线程功能,你可以指定操作符(或者特定的 Observable)在特定的调度器(Scheduler)上执行。  
-&amp;emsp;&amp;emsp;某些ReactiveX的Observable操作符有一些变体,它们可以接受一个Scheduler参数。这个参 数指定操作符将它们的部分或全部任务放在一个特定的调度器上执行。  
-&amp;emsp;&amp;emsp;使用ObserveOn和SubscribeOn操作符,你可以让Observable在一个特定的调度器上执行, ObserveOn指示一个Observable在一个特定的调度器上调用观察者的onNext, onError和 onCompleted方法,SubscribeOn更进一步,它指示Observable将全部的处理过程(包括发射 数据和通知)放在特定的调度器上执行。  
-
-&amp;emsp;&amp;emsp;Android是UI单线程的，所以在进行大量数据处理或者请求网络的时候我们经常要用到开启子线程异步处理数据。这时候我们就需要用到调度器了.  
-Rxjava使用调度器为我们提供了多种开启异步的方式。  
-如图：  
-[rxjava_schedule.png](/rxjava/rxjava_schedule.png)  
-
-
-
-&amp;emsp;&amp;emsp;看图得知，Schedulers.io( )操作符处理异步数据时是最适合我们使用的。  
-
-&gt;&amp;emsp;&amp;emsp;指定一个观察者在哪个调度器上观察这个Observable，我们可以使用ObserveOn操作符  
-&gt;&amp;emsp;&amp;emsp;指定Observable自身在哪个调度器上执行我们可以使用SubscribeOn操作符
-
-### RxAndroid
-
-
-&amp;emsp;&amp;emsp;RxAndroid是Rxjava的扩展，是由[JakeWharton](https://github.com/ReactiveX/RxAndroid)编写，目的是使Android可以优雅地处理异步请求并且完美融合Rxjava使用。RxAndroid为我们提供了一个AndroidSchedulers.mainThread()调度器，我们可以在observer中自由切换线程。
-
-我们先写个例子：
-</code></pre><p> Observable.just(“one”, “two”, “three”, “four”, “five”)<br>                .subscribeOn(Schedulers.io())<br>                .observeOn(AndroidSchedulers.mainThread())<br>                .subscribe(/<em> an Observer </em>/);</p>
-<p>```  </p>
-<p>这样Observable会在子线程里处理事件，处理结果会发送到onnext回调方法中去。</p>
+ Observable.just(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(/* an Observer */);
+</code></pre><p>这样Observable会在子线程里处理事件，处理结果会发送到onnext回调方法中去。</p>
 <p>&emsp;&emsp;今天就先说这么多了，这一篇主要讲了Rxjava的操作符和RxAndroid使用，下一章将结合Retrofit使用。</p>
 
       
